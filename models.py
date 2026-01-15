@@ -26,9 +26,12 @@ class CsvManagement():
     @staticmethod
     def Column_filtering(df: pd.DataFrame) -> dict:
         try:
-            top_5_sorte = [
-                top5terorist(**row)
-                for row in df.to_dict(orient="records")
+            top_5_sorte = [{ 
+                "name": row["name"], 
+                "location": row["location"], 
+                "danger_rate": row["danger_rate"] 
+                }
+                for row in df.to_dict()
                 ]
 
             dict = {
