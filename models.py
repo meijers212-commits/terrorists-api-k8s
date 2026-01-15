@@ -10,14 +10,17 @@ class top5terorist(BaseModel):
 # sorted_df = df.sort_values(by=['Age', 'Score'])
 
 class CsvManagement():
-    
+
     @staticmethod
-    def sort_by_danger_rate_top_5(df: pd.DataFrame):
+    def sort_by_danger_rate_top_5(df: pd.DataFrame) -> pd.DataFrame:
         try:
-            sorted_df = df.sort_values(['danger_rate'],ascending=False).groupby('danger_rate').head(5)
-            return sorted_df
+            return df.sort_values(
+                by="danger_rate",
+                ascending=False
+            ).head(5)
         except Exception as e:
-            raise {"Error parsing df":e}
+            raise RuntimeError("Error parsing df") from e
+
 
 
     @staticmethod
@@ -35,22 +38,5 @@ class CsvManagement():
         except Exception as e:
             raise {"Error creating dict from df":e}
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
