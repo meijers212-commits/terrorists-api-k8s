@@ -1,5 +1,5 @@
 import pandas as pd
-from pydantic import BaseModel , 
+from pydantic import BaseModel 
 
 
 class top5terorist(BaseModel):
