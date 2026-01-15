@@ -5,41 +5,61 @@ from pydantic import BaseModel
 class top5terorist(BaseModel):
     name: str
     location: str
-    danger_rate: float
+    danger_rate: int
 
-# sorted_df = df.sort_values(by=['Age', 'Score'])
+
 
 class CsvManagement():
 
     @staticmethod
-    def sort_by_danger_rate_top_5(df: pd.DataFrame) -> pd.DataFrame:
+    def sort_by_danger_rate_top_5(df: pd.DataFrame):
         try:
             return df.sort_values(
                 by="danger_rate",
                 ascending=False
             ).head(5)
         except Exception as e:
-            raise RuntimeError("Error parsing df") from e
+            raise RuntimeError(f"Error parsing df:{e}") 
 
 
 
     @staticmethod
-    def Column_filtering(df: pd.DataFrame) -> dict:
+    def Column_filtering(df: pd.DataFrame):
+        
         try:
-            top_5_sorte = [{ 
-                "name": row["name"], 
-                "location": row["location"], 
-                "danger_rate": row["danger_rate"] 
-                }
-                for row in df.to_dict()
-                ]
-
-            dict = {
+            top_5_sorted = [
+                top5terorist(
+                    name=str(row["name"]),
+                    location=str(row["location"]),
+                    danger_rate=int(row["danger_rate"])
+                    ).model_dump()
+                for row in df.to_dict(orient="records")
+            ]
+    
+            result_dict = {
                 "count": len(df),
-                "top": top_5_sorte
+                "top": top_5_sorted
             }
-
-            return dict
+            return result_dict
         except Exception as e:
-            raise RuntimeError("Error creating dict from df") 
+            raise RuntimeError(f"Error creating dict from df:{e}") 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
 

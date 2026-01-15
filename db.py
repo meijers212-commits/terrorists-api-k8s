@@ -8,7 +8,7 @@ load_dotenv("./.env")
 
 MONGO_DB = os.getenv("MONGO_DB")
 
-class DbCommunication(BaseModel):
+class DbCommunication():
 
 
     @staticmethod
@@ -18,12 +18,10 @@ class DbCommunication(BaseModel):
             MONGO_PORT = int(os.getenv("MONGO_PORT"))
             MONGO_USERNAME = os.getenv("MONGO_USERNAME")
             MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
-            client = pymongo.MongoClient(
-                f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:{MONGO_PORT}/",
-                serverSelectionTimeoutMS=5000)
+            client = pymongo.MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}/")
             return client
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"MongoDB connection failed: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"MongoDB connection failed: {e}")
 
 
 
@@ -40,6 +38,6 @@ class DbCommunication(BaseModel):
             collection.insert_many(data)
             return True
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Failed to insert data: {str(e)}")
+            raise HTTPException(status_code=500, detail=f"Failed to insert data: {e}")
 
 
