@@ -24,7 +24,7 @@ class CsvManagement():
 
 
     @staticmethod
-    def Column_filterin(df: pd.DataFrame) -> dict:
+    def Column_filtering(df: pd.DataFrame) -> dict:
         try:
             top_5_sorte = [
                 top5terorist(**row)
