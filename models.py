@@ -24,19 +24,19 @@ class CsvManagement():
 
 
     @staticmethod
-    def Column_filtering(df: pd.DataFrame):
+    def Column_filterin(df: pd.DataFrame) -> dict:
         try:
-            top_5_sorted = [
+            top_5_sorte = [
                 top5terorist(**row)
                 for row in df.to_dict(orient="records")
-                            ]
+                ]
 
             dict = {
-                "count":df.count(),
-                    "top":top_5_sorted
-                    }
-        except Exception as e:
-            raise {"Error creating dict from df":e}
-    
+                "count": len(df),
+                "top": top_5_sorte
+            }
 
+            return dict
+        except Exception as e:
+            raise RuntimeError("Error creating dict from df") 
 
